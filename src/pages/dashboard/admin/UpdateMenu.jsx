@@ -48,7 +48,7 @@ const UpdateMenu = () => {
         // show success popup
         reset();
         Swal.fire({
-          position: "top-end",
+          position: "top-center",
           icon: "success",
           title: `Item is updated successfully!`,
           showConfirmButton: false,
