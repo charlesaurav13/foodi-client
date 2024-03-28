@@ -4,7 +4,7 @@ import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../contexts/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
-
+import Swal from "sweetalert2";
 const Modal = () => {
   const [errorMessage, seterrorMessage] = useState("");
   const { signUpWithGmail, login } = useContext(AuthContext);
@@ -47,8 +47,12 @@ const Modal = () => {
           console.log(res.data);
         
       })
-        // console.log(user);
-        alert("Login successful!");
+      Swal.fire({
+        text:"Login Successful",
+        timer:1000,
+        showConfirmButton:false,
+        icon:"success"
+      })
         navigate("/");
         console.log("Modal Open:", isModalOpen);
         closeModal(); 
