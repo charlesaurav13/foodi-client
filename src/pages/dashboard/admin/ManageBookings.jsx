@@ -22,7 +22,7 @@ const ManageBookings = () => {
     queryKey: ["orders", user?.email],
     enabled: !loading,
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/payments/all`, {
+      const res = await fetch(`https://foodi-server-mocha.vercel.app/payments/all`, {
         headers: {
           authorization: `Bearer ${token}`,
         },

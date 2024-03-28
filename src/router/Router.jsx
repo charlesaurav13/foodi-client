@@ -85,7 +85,7 @@ const router = createBrowserRouter([
         {
           path: 'update-menu/:id',
           element: <UpdateMenu/>,
-          loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
+          loader: ({ params }) => fetch(`https://foodi-server-mocha.vercel.app/menu/${params.id}`)
         },
         {
           path: 'bookings',
