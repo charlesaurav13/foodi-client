@@ -12,7 +12,7 @@ const Signup = () => {
   const { signUpWithGmail, createUser, updateUserProfile } =
     useContext(AuthContext);
 
-    const axiosPublic = useAxiosPublic();
+  const axiosPublic = useAxiosPublic();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,44 +41,67 @@ const Signup = () => {
               email: data.email,
             };
 
-            axiosPublic.post("/users", userInfo)
-              .then((response) => {
-                console.log(response)
-                alert("Signin successful!");
-                navigate(from, { replace: true });
-              });
+            axiosPublic.post("/users", userInfo).then((response) => {
+              Swal.fire({
+                text:"Sign in Successful",
+                timer:1000,
+                showConfirmButton:false,
+                icon:"success"
+              })
+              
+              navigate(from, { replace: true });
+            });
           })
           .catch((error) => {
             const errorMessage = error.message;
           });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(error?.code)
+
+          if(error.code==='auth/email-already-in-use'){
+            Swal.fire({
+              title:"This email already exists ",
+              icon: "warning",
+              showConfirmButton: false,
+              timer:1500
+            });
+          }
+          else{
+            Swal.fire({
+              title: "Password should be atleast 6 characters",
+              icon: "warning",
+              showConfirmButton: false,
+              timer:1500
+            });
+          }
+        
+
         // ..
       });
   };
 
   // login with google
   const handleRegister = () => {
-    signUpWithGmail().then(result =>{
+    signUpWithGmail().then((result) => {
       console.log(result.user);
       const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName
-      }
-      axiosPublic.post('/users', userInfo)
-      .then(res =>{
-          console.log(res.data);
-          navigate('/');
-      })
-  })
+        email: result.user?.email,
+        name: result.user?.displayName,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res.data);
+        navigate("/");
+      });
+    });
   };
   return (
     <div className="max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20">
       <div className="mb-5">
         <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-          <h3 className="font-bold text-lg">Please Create An Account!</h3>
+          <h3 className="font-bold text-lg text-black">
+            Please Create An Account!
+          </h3>
           {/* name */}
           <div className="form-control">
             <label className="label">

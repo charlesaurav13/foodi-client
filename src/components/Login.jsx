@@ -77,7 +77,7 @@ const Login = () => {
             method="dialog"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <h3 className="font-bold text-lg">Please Login!</h3>
+            <h3 className="font-bold text-lg text-black">Please Login!</h3>
 
             {/* email */}
             <div className="form-control">
